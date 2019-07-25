@@ -1,0 +1,34 @@
+#!/usr/bin/lua
+
+require 'nixio'
+local collectors = require 'prometheusClient.collectors.ubus'
+local Server = require 'prometheusUhttpd'
+
+nixio.syslog('info', 'prometheus_client')
+
+-- Init some collectors
+local uptime = collectors.uptime()
+local mem_info = collectors.mem_info()
+local load_avg = collectors.load_avg()
+local wifi_signal = collectors.wifi_signal()
+local wifi_quality = collectors.wifi_quality()
+local wifi_bit_rate = collectors.wifi_bit_rate()
+local wifi_bytes_total = collectors.wifi_bytes_total()
+local wifi_packets = collectors.wifi_packets()
+local wifi_errors = collectors.wifi_errors()
+-- local packages_per_interface = collectors.packages_per_interface()
+
+-- Init the server and add some collectors
+local server = Server()
+server:add_instrument(uptime)
+server:add_instrument(mem_info)
+server:add_instrument(load_avg)
+server:add_instrument(wifi_signal)
+server:add_instrument(wifi_quality)
+server:add_instrument(wifi_bit_rate)
+server:add_instrument(wifi_bytes_total)
+server:add_instrument(wifi_packets)
+server:add_instrument(wifi_errors)
+-- server:add_instrument(packages_per_interface)
+
+print(server:response())
