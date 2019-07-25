@@ -1,4 +1,4 @@
-# GSoC 2019 – Monitoring of a community network, first results
+# GSoC 2019 – Monitoring of a community network
 ### by Franco Nicolas Bellomo
 
 ## Intro
